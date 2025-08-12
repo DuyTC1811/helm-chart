@@ -15,7 +15,7 @@ mysql:
   persistence:
     enabled: true                 # Kích hoạt tính năng sử dụng Persistent Volume
     size: 8Gi                     # Kích thước của Persistent Volume, ví dụ là 8GiB
-    storageClass: ""              # Tùy chọn: storageClass cho PVC. Để trống để sử dụng mặc định
+    storageClass: "rook-ceph-block" # Tùy chọn: storageClass cho PVC. Để trống để sử dụng mặc định
 
 imagePullSecrets: []              # Dùng để chỉ định các thông tin đăng nhập (secret) khi pull image từ private container registry.
 nameOverride: ""                  # Cho phép bạn thay thế tên mặc định của Helm chart bằng một tên khác.
