@@ -8,4 +8,4 @@ spec:
   resources:
     requests:
       storage: {{ .Values.mysql.persistence.size | default "8Gi" }}   # Sử dụng 8Gi làm giá trị mặc định
-  storageClassName: {{ .Values.mysql.persistence.storageClass | default "rook-cephfs" }}
+  storageClassName: {{ .Values.mysql.persistence.storageClass | default "rook-ceph-block" }}
