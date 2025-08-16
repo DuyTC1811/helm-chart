@@ -3,7 +3,7 @@ replicaCount: 1                   # Cấu hình số lượng replica cho ứng 
 image:
   repository: mysql               # Sử dụng image MySQL
   pullPolicy: IfNotPresent        # Chỉ kéo image khi chưa có trong node
-  tag: "8.0.34"                   # Phiên bản MySQL
+  tag: "8.4.6"                   # Phiên bản MySQL
 
 mysql:
   rootPassword: "anhduy12"
