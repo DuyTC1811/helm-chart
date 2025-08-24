@@ -23,7 +23,7 @@ spec:
         app: inventory-service
         app.kubernetes.io/name: inventory-service
     spec:
-      serviceAccountName: inventory-sa # ➜ THÊM: dùng SA có RBAC tối thiểu
+      serviceAccountName: product-sa # ➜ THÊM: dùng SA có RBAC tối thiểu
       terminationGracePeriodSeconds: 30
       securityContext:
         runAsNonRoot: true
