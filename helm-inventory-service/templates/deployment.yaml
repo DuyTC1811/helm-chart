@@ -1,0 +1,69 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-service
+  namespace: demo # ➜ nhớ thêm namespace nếu bạn dùng demo
+  labels:
+    app: inventory-service
+spec:
+  replicas: 4
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: inventory-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+  template:
+    metadata:
+      labels:
+        app: inventory-service
+        app.kubernetes.io/name: inventory-service
+    spec:
+      serviceAccountName: inventory-sa # ➜ THÊM: dùng SA có RBAC tối thiểu
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      containers:
+        - name: app
+          image: duytc81811/inventory-service:latest
+          imagePullPolicy: Always
+          ports: # ➜ THÊM: khai báo cổng container
+            - name: http
+              containerPort: 8081
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          # (khuyên) startupProbe để tránh refused lúc khởi động chậm
+          startupProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http
+            periodSeconds: 6
+            failureThreshold: 30
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: http # đổi sang tên cổng cho nhất quán
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
