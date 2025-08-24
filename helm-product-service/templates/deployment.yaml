@@ -20,7 +20,7 @@ spec:
       labels:
         app: product-service
     spec:
-      serviceAccountName: default
+      serviceAccountName: app
       securityContext:
         runAsNonRoot: true
         fsGroup: 1000
