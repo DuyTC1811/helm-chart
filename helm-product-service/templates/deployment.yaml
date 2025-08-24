@@ -25,6 +25,8 @@ spec:
       terminationGracePeriodSeconds: 30
       securityContext:
         runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
         - name: app
           image: duytc81811/product-service:latest
