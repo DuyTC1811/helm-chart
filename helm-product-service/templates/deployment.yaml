@@ -47,7 +47,7 @@ spec:
           startupProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: http                  # dùng tên cổng
+              port: http
             periodSeconds: 6
             failureThreshold: 30
             timeoutSeconds: 2
