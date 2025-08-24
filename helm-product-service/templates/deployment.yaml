@@ -43,6 +43,13 @@ spec:
             limits:
               cpu: "1"
               memory: "512Mi"
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
@@ -71,4 +78,3 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
-      terminationGracePeriodSeconds: 30
