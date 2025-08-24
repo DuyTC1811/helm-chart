@@ -23,11 +23,11 @@ spec:
       serviceAccountName: default
       securityContext:
         runAsNonRoot: true
-        fsGroup: 2000
+        fsGroup: 1000
       containers:
         - name: app
           image: duytc81811/product-service:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 8080
