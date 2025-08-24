@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,7 +7,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Release.Name }}
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   template:
     metadata:
       labels:
@@ -14,18 +15,18 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: "{{ .Values.mysql.image }}"
+          image: {{ .Values.mysql.image }}
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "{{ .Values.mysql.rootPassword }}"
+              value: {{ .Values.mysql.rootPassword }}
             - name: MYSQL_DATABASE
-              value: "{{ .Values.mysql.database }}"
+              value: {{ .Values.mysql.database }}
             - name: MYSQL_USER
-              value: "{{ .Values.mysql.user }}"
+              value: {{ .Values.mysql.user }}
             - name: MYSQL_PASSWORD
-              value: "{{ .Values.mysql.password }}"
+              value: {{ .Values.mysql.password }}
           ports:
-            - containerPort: 3306
+            - containerPort: {{ .Values.service.port }}
           volumeMounts:
             - name: mysql-persistent-storage
               mountPath: /var/lib/mysql
